@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		893970111765852100BBC88C /* NPLinkedList.m in Sources */ = {isa = PBXBuildFile; fileRef = 893970101765852100BBC88C /* NPLinkedList.m */; };
 		895CAE1D17657F5D001829E5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 895CAE1C17657F5D001829E5 /* UIKit.framework */; };
 		895CAE1F17657F5D001829E5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 895CAE1E17657F5D001829E5 /* Foundation.framework */; };
 		895CAE2117657F5D001829E5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 895CAE2017657F5D001829E5 /* CoreGraphics.framework */; };
@@ -19,6 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8939700F1765852100BBC88C /* NPLinkedList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NPLinkedList.h; path = ../NPFoundation/DataStructures/NPLinkedList.h; sourceTree = "<group>"; };
+		893970101765852100BBC88C /* NPLinkedList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NPLinkedList.m; path = ../NPFoundation/DataStructures/NPLinkedList.m; sourceTree = "<group>"; };
 		895CAE1917657F5D001829E5 /* NPFoundationDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NPFoundationDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		895CAE1C17657F5D001829E5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		895CAE1E17657F5D001829E5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -48,9 +51,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8939700D176584F900BBC88C /* NPFoundation */ = {
+			isa = PBXGroup;
+			children = (
+				8939700E1765850000BBC88C /* DataStructures */,
+			);
+			name = NPFoundation;
+			sourceTree = "<group>";
+		};
+		8939700E1765850000BBC88C /* DataStructures */ = {
+			isa = PBXGroup;
+			children = (
+				8939700F1765852100BBC88C /* NPLinkedList.h */,
+				893970101765852100BBC88C /* NPLinkedList.m */,
+			);
+			name = DataStructures;
+			sourceTree = "<group>";
+		};
 		895CAE1017657F5D001829E5 = {
 			isa = PBXGroup;
 			children = (
+				8939700D176584F900BBC88C /* NPFoundation */,
 				895CAE2217657F5D001829E5 /* NPFoundationDemo */,
 				895CAE1B17657F5D001829E5 /* Frameworks */,
 				895CAE1A17657F5D001829E5 /* Products */,
@@ -166,6 +187,7 @@
 			files = (
 				895CAE2917657F5D001829E5 /* main.m in Sources */,
 				895CAE2D17657F5D001829E5 /* NPAppDelegate.m in Sources */,
+				893970111765852100BBC88C /* NPLinkedList.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,6 +302,7 @@
 				895CAE3817657F5D001829E5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
