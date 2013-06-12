@@ -2,7 +2,7 @@
 //  NPAppDelegate.h
 //  NPFoundationDemo
 //
-//  Created by Nebs on 6/9/13.
+//  Created by Nebojsa Petrovic on 6/9/13.
 //
 //
 
