@@ -70,4 +70,67 @@
 
 }
 
+- (void)test_m_void_sortUsingComparator_ {
+
+}
+
+#pragma mark - Adding Objects
+- (void)test_m_void_addObject_ {
+
+}
+
+- (void)test_m_void_addObjectsFromLinkedList_ {
+
+}
+
+- (void)test_m_void_insertObject_afterObject_ {
+
+}
+
+- (void)test_m_void_insertObject_beforeObject_ {
+
+}
+
+- (void)test_m_void_insertObjectsFromLinkedList_afterObject_ {
+
+}
+
+- (void)test_m_void_insertObjectsFromLinkedList_beforeObject_ {
+
+}
+
+#pragma mark - Removing Objects
+- (void)test_m_void_removeAllObjects {
+
+}
+
+- (void)test_m_void_emoveHeadObject {
+
+}
+
+- (void)test_m_void_removeTailObject {
+
+}
+
+- (void)test_m_void_removeObject_ {
+
+}
+
+- (void)test_m_void_removeNumberOfObjects_afterObject_ {
+
+}
+
+- (void)test_m_void_removeNumberOfObjects_beforeObject_ {
+
+}
+
+#pragma mark - Replacing Objects
+- (void)test_m_void_replaceObject_withObject_ {
+
+}
+
+- (void)test_m_void_replaceObject_withLinkedList_ {
+
+}
+
 @end

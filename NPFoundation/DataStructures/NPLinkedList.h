@@ -46,7 +46,7 @@
 
  @return A linked list containing the objects in the argument list.
  */
-+ (id)linkedListWithObjects:(id)firstObj, ...;
++ (id)linkedListWithObjects:(id)firstObj, ... NS_REQUIRES_NIL_TERMINATION;
 
 
 ///---------------------------------------------
@@ -69,7 +69,7 @@
 
  @return A linked list initialized to contain the objects in the argument list.
  */
-- (id)initWithObjects:(id)firstObj, ...;
+- (id)initWithObjects:(id)firstObj, ... NS_REQUIRES_NIL_TERMINATION;
 
 
 ///---------------------------------------------
@@ -119,5 +119,126 @@
  @return An linked list that lists the receiving linked list’s elements in ascending order, as determined by the comparison method specified cmptr.
  */
 - (NPLinkedList *)sortedLinkListUsingComparator:(NSComparator)cmptr;
+
+/**
+ Sorts the linked list's elements in ascending order, as determined by the comparison method specified by a given NSComparator Block.
+
+ @param cmptr A comparator block.
+ */
+- (void)sortUsingComparator:(NSComparator)cmptr;
+
+///---------------------------------------------
+/// @name Adding Objects
+///---------------------------------------------
+
+/**
+ Inserts a given object at the end of the linked list.
+
+ @param anObject The object to add to the end of the list. This value must not be nil.
+ */
+- (void)addObject:(id)anObject;
+
+/**
+ Inserts objects from a given linked list at the end of the linked list.
+
+ @param aLinkedList A linked list.
+ */
+- (void)addObjectsFromLinkedList:(NPLinkedList *)aLinkedListed;
+
+/**
+ Inserts a given object right after prevObject if it is found, otherwise nothing is inserted.
+
+ @param anObject The object to insert into the linked list.
+ @param prevObject The object in the linked list upon which anObject will be inserted.
+ */
+- (void)insertObject:(id)anObject afterObject:(id)prevObject;
+
+/**
+ Inserts a given object right before nextObject if it is found, otherwise nothing is inserted.
+
+ @param anObject The object to insert into the linked list.
+ @param nextObject The object in the linked list before which anObject will be inserted.
+ */
+- (void)insertObject:(id)anObject beforeObject:(id)nextObject;
+
+/**
+ Inserts objects from a given linked list right after prevObject if it is found, otherwise nothing is inserted.
+
+ @param aLinkedList The linked list containing the objects to be added.
+ @param prevObject The object in the linked list upon which aLinkedList objects will be inserted.
+ */
+- (void)insertObjectsFromLinkedList:(NPLinkedList *)aLinkedList afterObject:(id)prevObject;
+
+/**
+ Inserts objects from a given linked list right before nextObject if it is found, otherwise nothing is inserted.
+
+ @param aLinkedList The linked list containing the objects to be added.
+ @param nextObject The object in the linked list before which aLinkedList objects will be inserted.
+ */
+- (void)insertObjectsFromLinkedList:(NPLinkedList *)aLinkedList beforeObject:(id)nextObject;
+
+
+///---------------------------------------------
+/// @name Removing Objects
+///---------------------------------------------
+
+/**
+ Removes all objects from the linked list.
+ */
+- (void)removeAllObjects;
+
+/**
+ Removes the head object from the linked list if it exists.
+ */
+- (void)removeHeadObject;
+
+/**
+ Removes the tail object from the linked list if it exists.
+ */
+- (void)removeTailObject;
+
+/**
+ Removes the given object from the linked list if found.
+
+ @param anObject The object to remove.
+ */
+- (void)removeObject:(id)anObject;
+
+/**
+ Removes a number of connected objects from the linked list starting at a given object and moving forward.  If anObject is not in the linked list then nothing is done.
+
+ @param numObjects The number of objects to remove.
+ @param anObject The object to start removing from.  This object is included in the numObjects count.
+ */
+- (void)removeNumberOfObjects:(NSUInteger)numObjects afterObject:(id)anObject;
+
+/**
+ Removes a number of connected objects from the linked list starting at a given object and moving backwards.  If the object is not in the linked list then nothing is done.
+
+ @param numObjects The number of objects to remove.
+ @param anObject The object to start removing from.  This object is included in the numObjects count.
+ */
+- (void)removeNumberOfObjects:(NSUInteger)numObjects beforeObject:(id)anObject;
+
+
+///---------------------------------------------
+/// @name Replacing Objects
+///---------------------------------------------
+
+/**
+ Replaces an object with another object in the linked list.  If the object is not in the linked list then nothing is done.
+
+ @param anObject The object in the linked list that will be replaced.
+ @param newObject The new object that will be added.
+ */
+- (void)replaceObject:(id)anObject withObject:(id)newObject;
+
+/**
+ Replaces an object with objects from a linked list.  If the object is not in the linked list then nothing is done.
+
+ @param anObject The object in the linked list that will be replaced.
+ @param aLinkedList The linked list to be inserted.
+ */
+- (void)replaceObject:(id)anObject withLinkedList:(id)aLinkedList;
 
 @end
