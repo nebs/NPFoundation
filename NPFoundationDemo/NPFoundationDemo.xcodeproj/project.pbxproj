@@ -17,7 +17,22 @@
 		895CAE2F17657F5D001829E5 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 895CAE2E17657F5D001829E5 /* Default.png */; };
 		895CAE3117657F5D001829E5 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 895CAE3017657F5D001829E5 /* Default@2x.png */; };
 		895CAE3317657F5D001829E5 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 895CAE3217657F5D001829E5 /* Default-568h@2x.png */; };
+		89ECE377176824F900F97B09 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89ECE376176824F900F97B09 /* SenTestingKit.framework */; };
+		89ECE378176824F900F97B09 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 895CAE1C17657F5D001829E5 /* UIKit.framework */; };
+		89ECE379176824F900F97B09 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 895CAE1E17657F5D001829E5 /* Foundation.framework */; };
+		89ECE37F176824F900F97B09 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 89ECE37D176824F900F97B09 /* InfoPlist.strings */; };
+		89ECE390176826B500F97B09 /* NPLinkedListTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89ECE38F176826B500F97B09 /* NPLinkedListTests.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		89ECE3871768250C00F97B09 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 895CAE1117657F5D001829E5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 895CAE1817657F5D001829E5;
+			remoteInfo = NPFoundationDemo;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		8939700F1765852100BBC88C /* NPLinkedList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NPLinkedList.h; path = ../NPFoundation/DataStructures/NPLinkedList.h; sourceTree = "<group>"; };
@@ -35,6 +50,13 @@
 		895CAE2E17657F5D001829E5 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		895CAE3017657F5D001829E5 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		895CAE3217657F5D001829E5 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		89ECE375176824F900F97B09 /* UnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		89ECE376176824F900F97B09 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		89ECE37C176824F900F97B09 /* UnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
+		89ECE37E176824F900F97B09 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		89ECE383176824F900F97B09 /* UnitTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UnitTests-Prefix.pch"; sourceTree = "<group>"; };
+		89ECE38E176826B500F97B09 /* NPLinkedListTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NPLinkedListTests.h; path = NPFoundation/DataStructures/NPLinkedListTests.h; sourceTree = "<group>"; };
+		89ECE38F176826B500F97B09 /* NPLinkedListTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NPLinkedListTests.m; path = NPFoundation/DataStructures/NPLinkedListTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +67,16 @@
 				895CAE1D17657F5D001829E5 /* UIKit.framework in Frameworks */,
 				895CAE1F17657F5D001829E5 /* Foundation.framework in Frameworks */,
 				895CAE2117657F5D001829E5 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		89ECE371176824F900F97B09 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				89ECE377176824F900F97B09 /* SenTestingKit.framework in Frameworks */,
+				89ECE378176824F900F97B09 /* UIKit.framework in Frameworks */,
+				89ECE379176824F900F97B09 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,6 +105,7 @@
 			children = (
 				8939700D176584F900BBC88C /* NPFoundation */,
 				895CAE2217657F5D001829E5 /* NPFoundationDemo */,
+				89ECE37A176824F900F97B09 /* UnitTests */,
 				895CAE1B17657F5D001829E5 /* Frameworks */,
 				895CAE1A17657F5D001829E5 /* Products */,
 			);
@@ -82,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				895CAE1917657F5D001829E5 /* NPFoundationDemo.app */,
+				89ECE375176824F900F97B09 /* UnitTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -92,6 +126,7 @@
 				895CAE1C17657F5D001829E5 /* UIKit.framework */,
 				895CAE1E17657F5D001829E5 /* Foundation.framework */,
 				895CAE2017657F5D001829E5 /* CoreGraphics.framework */,
+				89ECE376176824F900F97B09 /* SenTestingKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -120,6 +155,42 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		89ECE37A176824F900F97B09 /* UnitTests */ = {
+			isa = PBXGroup;
+			children = (
+				89ECE389176825D800F97B09 /* NPFoundation */,
+				89ECE37B176824F900F97B09 /* Supporting Files */,
+			);
+			path = UnitTests;
+			sourceTree = "<group>";
+		};
+		89ECE37B176824F900F97B09 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				89ECE37C176824F900F97B09 /* UnitTests-Info.plist */,
+				89ECE37D176824F900F97B09 /* InfoPlist.strings */,
+				89ECE383176824F900F97B09 /* UnitTests-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		89ECE389176825D800F97B09 /* NPFoundation */ = {
+			isa = PBXGroup;
+			children = (
+				89ECE38A176825E300F97B09 /* DataStructures */,
+			);
+			name = NPFoundation;
+			sourceTree = "<group>";
+		};
+		89ECE38A176825E300F97B09 /* DataStructures */ = {
+			isa = PBXGroup;
+			children = (
+				89ECE38E176826B500F97B09 /* NPLinkedListTests.h */,
+				89ECE38F176826B500F97B09 /* NPLinkedListTests.m */,
+			);
+			name = DataStructures;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -139,6 +210,25 @@
 			productName = NPFoundationDemo;
 			productReference = 895CAE1917657F5D001829E5 /* NPFoundationDemo.app */;
 			productType = "com.apple.product-type.application";
+		};
+		89ECE374176824F900F97B09 /* UnitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 89ECE386176824F900F97B09 /* Build configuration list for PBXNativeTarget "UnitTests" */;
+			buildPhases = (
+				89ECE370176824F900F97B09 /* Sources */,
+				89ECE371176824F900F97B09 /* Frameworks */,
+				89ECE372176824F900F97B09 /* Resources */,
+				89ECE373176824F900F97B09 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				89ECE3881768250C00F97B09 /* PBXTargetDependency */,
+			);
+			name = UnitTests;
+			productName = UnitTests;
+			productReference = 89ECE375176824F900F97B09 /* UnitTests.octest */;
+			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
 
@@ -162,6 +252,7 @@
 			projectRoot = "";
 			targets = (
 				895CAE1817657F5D001829E5 /* NPFoundationDemo */,
+				89ECE374176824F900F97B09 /* UnitTests */,
 			);
 		};
 /* End PBXProject section */
@@ -178,7 +269,31 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		89ECE372176824F900F97B09 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				89ECE37F176824F900F97B09 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		89ECE373176824F900F97B09 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		895CAE1517657F5D001829E5 /* Sources */ = {
@@ -191,13 +306,37 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		89ECE370176824F900F97B09 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				89ECE390176826B500F97B09 /* NPLinkedListTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		89ECE3881768250C00F97B09 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 895CAE1817657F5D001829E5 /* NPFoundationDemo */;
+			targetProxy = 89ECE3871768250C00F97B09 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		895CAE2517657F5D001829E5 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				895CAE2617657F5D001829E5 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		89ECE37D176824F900F97B09 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				89ECE37E176824F900F97B09 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -266,6 +405,7 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "NPFoundationDemo/NPFoundationDemo-Prefix.pch";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = "NPFoundationDemo/NPFoundationDemo-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -277,9 +417,44 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "NPFoundationDemo/NPFoundationDemo-Prefix.pch";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = "NPFoundationDemo/NPFoundationDemo-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		89ECE384176824F900F97B09 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/NPFoundationDemo.app/NPFoundationDemo";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "UnitTests/UnitTests-Prefix.pch";
+				INFOPLIST_FILE = "UnitTests/UnitTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		89ECE385176824F900F97B09 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/NPFoundationDemo.app/NPFoundationDemo";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "UnitTests/UnitTests-Prefix.pch";
+				INFOPLIST_FILE = "UnitTests/UnitTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
 		};
@@ -303,6 +478,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		89ECE386176824F900F97B09 /* Build configuration list for PBXNativeTarget "UnitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				89ECE384176824F900F97B09 /* Debug */,
+				89ECE385176824F900F97B09 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
