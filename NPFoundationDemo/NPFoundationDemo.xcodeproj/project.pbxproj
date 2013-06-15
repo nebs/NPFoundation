@@ -21,7 +21,6 @@
 		89ECE378176824F900F97B09 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 895CAE1C17657F5D001829E5 /* UIKit.framework */; };
 		89ECE379176824F900F97B09 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 895CAE1E17657F5D001829E5 /* Foundation.framework */; };
 		89ECE37F176824F900F97B09 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 89ECE37D176824F900F97B09 /* InfoPlist.strings */; };
-		89ECE390176826B500F97B09 /* NPLinkedListTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89ECE38F176826B500F97B09 /* NPLinkedListTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,8 +54,6 @@
 		89ECE37C176824F900F97B09 /* UnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
 		89ECE37E176824F900F97B09 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		89ECE383176824F900F97B09 /* UnitTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UnitTests-Prefix.pch"; sourceTree = "<group>"; };
-		89ECE38E176826B500F97B09 /* NPLinkedListTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NPLinkedListTests.h; path = NPFoundation/DataStructures/NPLinkedListTests.h; sourceTree = "<group>"; };
-		89ECE38F176826B500F97B09 /* NPLinkedListTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NPLinkedListTests.m; path = NPFoundation/DataStructures/NPLinkedListTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,8 +182,6 @@
 		89ECE38A176825E300F97B09 /* DataStructures */ = {
 			isa = PBXGroup;
 			children = (
-				89ECE38E176826B500F97B09 /* NPLinkedListTests.h */,
-				89ECE38F176826B500F97B09 /* NPLinkedListTests.m */,
 			);
 			name = DataStructures;
 			sourceTree = "<group>";
@@ -310,7 +305,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				89ECE390176826B500F97B09 /* NPLinkedListTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -486,6 +480,7 @@
 				89ECE385176824F900F97B09 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

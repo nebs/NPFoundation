@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NPLinkedList : NSObject
+@interface NPLinkedList : NSObject <NSFastEnumeration>
 
 ///---------------------------------------------
 /// @name Creating a Linked List
@@ -240,5 +240,19 @@
  @param aLinkedList The linked list to be inserted.
  */
 - (void)replaceObject:(id)anObject withLinkedList:(id)aLinkedList;
+
+
+///---------------------------------------------
+/// @name Enumerating
+///---------------------------------------------
+
+/**
+ Calls mapBlock on every object in the list and returns a new list containing the resutling objects.  It does not modify the calling list.
+
+ @param mapBlock The block to perform map on.  It should return an object.
+
+ @return A new linked list containing the resulting objects returned by mapBlock.
+ */
+- (NPLinkedList *)map:(id (^)(id object))mapBlock;
 
 @end

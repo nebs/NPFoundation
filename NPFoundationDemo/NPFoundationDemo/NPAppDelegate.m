@@ -7,6 +7,7 @@
 //
 
 #import "NPAppDelegate.h"
+#import "NPLinkedList.h"
 
 @implementation NPAppDelegate
 
