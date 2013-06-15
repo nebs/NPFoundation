@@ -251,8 +251,6 @@
 - (NSUInteger) countByEnumeratingWithState: (NSFastEnumerationState *)state
                                    objects: (id __unsafe_unretained *)buffer
                                      count: (NSUInteger)bufferSize {
-    // TODO - The objects returned are cf versions, need to cast back into obj-c objects somehow.
-
     // Initial state preparation.
     if (state->state == 0) {
         // Point to something that won't mutate.
@@ -272,7 +270,8 @@
     }
 
     // This is the object that is passed into the 'for..in' loop
-    state->itemsPtr = (__unsafe_unretained id *)(__bridge void *)currentNode.object;
+    __unsafe_unretained id object = currentNode.object;
+    state->itemsPtr = &object;
 
     // Save the next node in the state for iteration
     if(currentNode) {
