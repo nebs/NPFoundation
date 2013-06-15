@@ -142,6 +142,14 @@
     return self.tail.object;
 }
 
+- (NSArray *)allObjects {
+    NSMutableArray *array = [NSMutableArray array];
+    for (id object in self) {
+        [array addObject:object];
+    }
+    return array;
+}
+
 #pragma mark - Sorting
 - (NPLinkedList *)sortedLinkListUsingComparator:(NSComparator)cmptr {
     // TODO

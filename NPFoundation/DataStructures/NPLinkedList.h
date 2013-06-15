@@ -106,6 +106,13 @@
  */
 - (id)tailObject;
 
+/**
+ Returns an array holding all the objects in the linked list.
+
+ @return The array containing all the objects from the linked list.
+ */
+- (NSArray *)allObjects;
+
 
 ///---------------------------------------------
 /// @name Sorting
