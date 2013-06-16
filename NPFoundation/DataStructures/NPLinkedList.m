@@ -125,12 +125,8 @@
 }
 
 - (NSUInteger)count {
-    NPLinkedListNode *nextNode = self.head;
     NSUInteger i = 0;
-    while (nextNode) {
-        i++;
-        nextNode = nextNode.next;
-    }
+    for (id object in self) i++;
     return i;
 }
 
@@ -183,10 +179,9 @@
 }
 
 - (void)addObjectsFromLinkedList:(NPLinkedList *)aLinkedListed {
-    [aLinkedListed map:^id(id object) {
+    for (id object in self) {
         [self addObject:object];
-        return object;
-    }];
+    }
 }
 
 - (void)insertObject:(id)anObject afterObject:(id)prevObject {
@@ -260,10 +255,8 @@
 #pragma mark - Enumeration
 - (NPLinkedList *)map:(id (^)(id object))mapBlock {
     NPLinkedList *resultingList = [NPLinkedList linkedList];
-    NPLinkedListNode *nextNode = self.head;
-    while (nextNode) {
-        [resultingList addObject:mapBlock(nextNode.object)];
-        nextNode = nextNode.next;
+    for (id object in self) {
+        [resultingList addObject:mapBlock(object)];
     }
     return resultingList;
 }
