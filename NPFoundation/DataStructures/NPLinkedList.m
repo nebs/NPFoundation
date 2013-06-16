@@ -32,6 +32,9 @@
 @property (nonatomic) NPLinkedListNode *tail;
 
 - (NPLinkedListNode *)nodeForObject:(id)anObject;
++ (NPLinkedList *)linkedListByMergingLinkedList:(NPLinkedList *)leftList
+                                 withLinkedList:(NPLinkedList *)rightList
+                                usingComparator:(NSComparator)cmptr;
 @end
 
 @implementation NPLinkedList
@@ -76,6 +79,31 @@
 
     aNode.next = nil;
     aNode.prev = nil;
+}
+
++ (NPLinkedList *)linkedListByMergingLinkedList:(NPLinkedList *)leftList
+                                 withLinkedList:(NPLinkedList *)rightList
+                                usingComparator:(NSComparator)cmptr {
+    NPLinkedList *mergedLinkedList = [NPLinkedList new];
+    while ([leftList count] > 0 || [rightList count] > 0) {
+        if ([leftList count] > 0 && [rightList count] > 0) {
+            NSComparisonResult result = cmptr(leftList.head.object, rightList.head.object);
+            if (result == NSOrderedDescending) {
+                [mergedLinkedList addObject:rightList.head.object];
+                [rightList removeHeadObject];
+            } else {
+                [mergedLinkedList addObject:leftList.head.object];
+                [leftList removeHeadObject];
+            }
+        } else if ([leftList count] > 0) {
+            [mergedLinkedList addObject:leftList.head.object];
+            [leftList removeHeadObject];
+        } else if ([rightList count] > 0) {
+            [mergedLinkedList addObject:rightList.head.object];
+            [rightList removeHeadObject];
+        }
+    }
+    return mergedLinkedList;
 }
 
 #pragma mark - Creating a Linked List
@@ -147,14 +175,40 @@
 }
 
 #pragma mark - Sorting
-- (NPLinkedList *)sortedLinkedListUsingComparator:(NSComparator)cmptr {
-    NPLinkedList *sortedLinkedList = [self copy];
-    [sortedLinkedList sortUsingComparator:cmptr];
-    return sortedLinkedList;
++ (NPLinkedList *)sortedLinkedList:(NPLinkedList *)aLinkedList
+                   usingComparator:(NSComparator)cmptr {
+    if ([aLinkedList count] <= 1) {
+        return aLinkedList;
+    }
+
+    // Find the center node
+    NSUInteger center = [aLinkedList count] / 2;
+
+    // Split items into left and right lists
+    NPLinkedList *leftList = [NPLinkedList new];
+    NPLinkedList *rightList = [NPLinkedList new];
+
+    NSUInteger i = 0;
+    for (id object in aLinkedList) {
+        if (i < center) {
+            [leftList addObject:object];
+        } else {
+            [rightList addObject:object];
+        }
+        i++;
+    }
+
+    // Sort the sub lists
+    leftList = [NPLinkedList sortedLinkedList:leftList usingComparator:cmptr];
+    rightList = [NPLinkedList sortedLinkedList:rightList usingComparator:cmptr];
+
+    return [NPLinkedList linkedListByMergingLinkedList:leftList
+                                        withLinkedList:rightList
+                                       usingComparator:cmptr];
 }
 
-- (void)sortUsingComparator:(NSComparator)cmptr {
-    // TODO
+- (NPLinkedList *)sortedLinkedListUsingComparator:(NSComparator)cmptr {
+    return [NPLinkedList sortedLinkedList:self usingComparator:cmptr];
 }
 
 #pragma mark - Adding Objects

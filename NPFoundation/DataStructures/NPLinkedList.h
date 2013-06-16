@@ -119,6 +119,17 @@
 ///---------------------------------------------
 
 /**
+ Creates and returns a linked list that is a sorted version of the given linked list using the given comparator block.
+
+ @param aLinkedList The list to be sorted
+ @param cmptr A comparator block.
+
+ @return A new linked list containing the objects from aLinkedList sorted using the rules from the comparator block.
+ */
++ (NPLinkedList *)sortedLinkedList:(NPLinkedList *)aLinkedList
+                   usingComparator:(NSComparator)cmptr;
+
+/**
  Returns a linked list that lists the receiving linked list’s elements in ascending order, as determined by the comparison method specified by a given NSComparator Block.
 
  @param cmptr A comparator block.
@@ -126,13 +137,6 @@
  @return An linked list that lists the receiving linked list’s elements in ascending order, as determined by the comparison method specified cmptr.
  */
 - (NPLinkedList *)sortedLinkedListUsingComparator:(NSComparator)cmptr;
-
-/**
- Sorts the linked list's elements in ascending order, as determined by the comparison method specified by a given NSComparator Block.
-
- @param cmptr A comparator block.
- */
-- (void)sortUsingComparator:(NSComparator)cmptr;
 
 ///---------------------------------------------
 /// @name Adding Objects
