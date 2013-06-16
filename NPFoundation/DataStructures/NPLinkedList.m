@@ -295,4 +295,17 @@
     return 1;
 }
 
+#pragma mark - NSCopying Protocol
+- (id)copyWithZone:(NSZone *)zone {
+    NPLinkedList *copyLinkedList = [NPLinkedList new];
+
+    if (copyLinkedList) {
+        for (id object in self) {
+            [copyLinkedList addObject:[object copyWithZone:zone]];
+        }
+    }
+
+    return copyLinkedList;
+}
+
 @end

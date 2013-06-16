@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NPLinkedList : NSObject <NSFastEnumeration>
+@interface NPLinkedList : NSObject <NSFastEnumeration, NSCopying>
 
 ///---------------------------------------------
 /// @name Creating a Linked List
