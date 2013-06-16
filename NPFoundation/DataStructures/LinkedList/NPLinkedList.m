@@ -7,26 +7,8 @@
 //
 
 #import "NPLinkedList.h"
+#import "NPLinkedListNode.h"
 
-/******************************************
-  NPLinkedListNode Class
-
-  This class is used to represent a node
-  in the list.
- ******************************************/
-@interface NPLinkedListNode : NSObject
-@property (nonatomic) id object;
-@property (nonatomic) id next;
-@property (nonatomic) id prev;
-@end
-@implementation NPLinkedListNode
-@end
-
-/******************************************
- NPLinkedList Class
-
- This class represents a linked list.
- ******************************************/
 @interface NPLinkedList ()
 @property (nonatomic) NPLinkedListNode *head;
 @property (nonatomic) NPLinkedListNode *tail;
