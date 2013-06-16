@@ -363,4 +363,16 @@
     return copyLinkedList;
 }
 
+#pragma mark - NSObject Overrides
+- (NSString *)description {
+    NSMutableString *string = [NSMutableString string];
+    for (id object in self) {
+        [string appendFormat:@"%@", object];
+        if (self.tail.object != object) {
+            [string appendString:@"-"];
+        }
+    }
+    return string;
+}
+
 @end
