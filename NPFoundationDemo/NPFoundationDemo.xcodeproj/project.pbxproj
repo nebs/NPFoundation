@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8028C3FE176D792B006E1779 /* NPLinkedListSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 8028C3FD176D792B006E1779 /* NPLinkedListSpec.m */; };
+		8028C400176D7AAF006E1779 /* libKiwi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8028C3FF176D7AAF006E1779 /* libKiwi.a */; };
 		893970111765852100BBC88C /* NPLinkedList.m in Sources */ = {isa = PBXBuildFile; fileRef = 893970101765852100BBC88C /* NPLinkedList.m */; };
 		895CAE1D17657F5D001829E5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 895CAE1C17657F5D001829E5 /* UIKit.framework */; };
 		895CAE1F17657F5D001829E5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 895CAE1E17657F5D001829E5 /* Foundation.framework */; };
@@ -34,6 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8028C3FD176D792B006E1779 /* NPLinkedListSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NPLinkedListSpec.m; path = NPFoundation/DataStructures/NPLinkedListSpec.m; sourceTree = "<group>"; };
+		8028C3FF176D7AAF006E1779 /* libKiwi.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = libKiwi.a; path = "../Vendor/Kiwi/build/Release-iphoneos/libKiwi.a"; sourceTree = "<group>"; };
 		8939700F1765852100BBC88C /* NPLinkedList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NPLinkedList.h; path = ../NPFoundation/DataStructures/NPLinkedList.h; sourceTree = "<group>"; };
 		893970101765852100BBC88C /* NPLinkedList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NPLinkedList.m; path = ../NPFoundation/DataStructures/NPLinkedList.m; sourceTree = "<group>"; };
 		895CAE1917657F5D001829E5 /* NPFoundationDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NPFoundationDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -71,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8028C400176D7AAF006E1779 /* libKiwi.a in Frameworks */,
 				89ECE377176824F900F97B09 /* SenTestingKit.framework in Frameworks */,
 				89ECE378176824F900F97B09 /* UIKit.framework in Frameworks */,
 				89ECE379176824F900F97B09 /* Foundation.framework in Frameworks */,
@@ -120,6 +125,7 @@
 		895CAE1B17657F5D001829E5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8028C3FF176D7AAF006E1779 /* libKiwi.a */,
 				895CAE1C17657F5D001829E5 /* UIKit.framework */,
 				895CAE1E17657F5D001829E5 /* Foundation.framework */,
 				895CAE2017657F5D001829E5 /* CoreGraphics.framework */,
@@ -182,6 +188,7 @@
 		89ECE38A176825E300F97B09 /* DataStructures */ = {
 			isa = PBXGroup;
 			children = (
+				8028C3FD176D792B006E1779 /* NPLinkedListSpec.m */,
 			);
 			name = DataStructures;
 			sourceTree = "<group>";
@@ -305,6 +312,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8028C3FE176D792B006E1779 /* NPLinkedListSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -429,8 +437,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "UnitTests/UnitTests-Prefix.pch";
 				INFOPLIST_FILE = "UnitTests/UnitTests-Info.plist";
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
+				USER_HEADER_SEARCH_PATHS = ../Vendor/Kiwi/Classes;
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
@@ -446,8 +456,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "UnitTests/UnitTests-Prefix.pch";
 				INFOPLIST_FILE = "UnitTests/UnitTests-Info.plist";
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
+				USER_HEADER_SEARCH_PATHS = ../Vendor/Kiwi/Classes;
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
