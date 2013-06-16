@@ -147,9 +147,10 @@
 }
 
 #pragma mark - Sorting
-- (NPLinkedList *)sortedLinkListUsingComparator:(NSComparator)cmptr {
-    // TODO
-    return nil;
+- (NPLinkedList *)sortedLinkedListUsingComparator:(NSComparator)cmptr {
+    NPLinkedList *sortedLinkedList = [self copy];
+    [sortedLinkedList sortUsingComparator:cmptr];
+    return sortedLinkedList;
 }
 
 - (void)sortUsingComparator:(NSComparator)cmptr {

@@ -125,7 +125,7 @@
 
  @return An linked list that lists the receiving linked list’s elements in ascending order, as determined by the comparison method specified cmptr.
  */
-- (NPLinkedList *)sortedLinkListUsingComparator:(NSComparator)cmptr;
+- (NPLinkedList *)sortedLinkedListUsingComparator:(NSComparator)cmptr;
 
 /**
  Sorts the linked list's elements in ascending order, as determined by the comparison method specified by a given NSComparator Block.
