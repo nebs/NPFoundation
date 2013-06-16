@@ -316,6 +316,7 @@
     return resultingList;
 }
 
+#pragma mark - NSFastEnumeration Protocol
 - (NSUInteger) countByEnumeratingWithState: (NSFastEnumerationState *)state
                                    objects: (id __unsafe_unretained *)buffer
                                      count: (NSUInteger)bufferSize {
