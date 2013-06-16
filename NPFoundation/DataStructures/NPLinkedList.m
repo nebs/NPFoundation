@@ -125,7 +125,7 @@
 }
 
 - (NSUInteger)count {
-    NPLinkedListNode *nextNode = self.tail;
+    NPLinkedListNode *nextNode = self.head;
     NSUInteger i = 0;
     while (nextNode) {
         i++;
@@ -168,17 +168,17 @@
 
     NPLinkedListNode *newNode = [NPLinkedListNode new];
     newNode.object = anObject;
-    newNode.prev = self.head;
+    newNode.prev = self.tail;
     newNode.next = nil;
 
-    if (self.head) {
-        self.head.next = newNode;
+    if (self.tail) {
+        self.tail.next = newNode;
     }
 
-    self.head = newNode;
+    self.tail = newNode;
 
-    if (!self.tail) {
-        self.tail = newNode;
+    if (!self.head) {
+        self.head = newNode;
     }
 }
 
@@ -212,15 +212,27 @@
 }
 
 - (void)removeHeadObject {
-    NPLinkedListNode *oldHead = self.head;
-    self.head = oldHead.prev;
-    oldHead.prev = nil;
+    // Set the new head
+    NPLinkedListNode *currentHead = self.head;
+    self.head = currentHead.next;
+    self.head.prev = nil;
+
+    // Remove the old head
+    currentHead.next = nil;
+    currentHead.prev = nil;
+    currentHead = nil;
 }
 
 - (void)removeTailObject {
-    NPLinkedListNode *oldTail = self.tail;
-    self.tail = oldTail.next;
-    oldTail.next = nil;
+    // Set the new tail
+    NPLinkedListNode *currentTail = self.tail;
+    self.tail = currentTail.prev;
+    self.tail.next = nil;
+
+    // Remove the old tail
+    currentTail.next = nil;
+    currentTail.prev = nil;
+    currentTail = nil;
 }
 
 - (void)removeObject:(id)anObject {
@@ -248,7 +260,7 @@
 #pragma mark - Enumeration
 - (NPLinkedList *)map:(id (^)(id object))mapBlock {
     NPLinkedList *resultingList = [NPLinkedList linkedList];
-    NPLinkedListNode *nextNode = self.tail;
+    NPLinkedListNode *nextNode = self.head;
     while (nextNode) {
         [resultingList addObject:mapBlock(nextNode.object)];
         nextNode = nextNode.next;
@@ -265,7 +277,7 @@
         state->mutationsPtr = (unsigned long *)(__bridge void *)self;
 
         // Start at the tail
-        state->extra[0] = (unsigned long)self.tail;
+        state->extra[0] = (unsigned long)self.head;
 
         // We're ready to start iterating...
         state->state = 1;
