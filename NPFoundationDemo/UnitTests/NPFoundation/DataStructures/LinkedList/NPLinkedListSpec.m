@@ -1414,12 +1414,200 @@ describe(@"-removeObject:", ^{
     });
 });
 
-describe(@"-removeNumberOfObjects:afterObject:", ^{
-    // TODO
-});
+describe(@"-removeNumberOfObjects:startingWithObject:movingForward:", ^{
+    __block NPLinkedList *linkedList = nil;
+    __block NSInteger numObjectsToRemove = 0;
+    __block NSString *relativeObject = nil;
+    __block BOOL movingForward = YES;
+    __block NSString *firstObject = @"A";
+    __block NSString *secondObject = @"B";
+    __block NSString *thirdObject = @"C";
+    __block NSUInteger afterCount = 0;
+    __block NSUInteger listCount = 0;
 
-describe(@"-removeNumberOfObjects:beforeObject:", ^{
-    // TODO
+    beforeEach(^{
+        linkedList = [NPLinkedList linkedListWithObjects:firstObject, secondObject, thirdObject, nil];
+        listCount = [linkedList count];
+        relativeObject = secondObject;
+        numObjectsToRemove = 0;
+        movingForward = YES;
+    });
+
+    context(@"when the list is empty", ^{
+        beforeEach(^{
+            linkedList = [NPLinkedList linkedList];
+            [linkedList removeNumberOfObjects:numObjectsToRemove
+                           startingWithObject:relativeObject
+                                movingForward:movingForward];
+            afterCount = [linkedList count];
+        });
+
+        it(@"remains empty", ^{
+            [[theValue(afterCount) should] equal:theValue(0)];
+        });
+    });
+
+    context(@"when the number of objects is 0", ^{
+        beforeEach(^{
+            [linkedList removeNumberOfObjects:numObjectsToRemove
+                           startingWithObject:relativeObject
+                                movingForward:movingForward];
+            afterCount = [linkedList count];
+        });
+
+        it(@"leaves the linked list unchanged", ^{
+            [[theValue(afterCount) should] equal:theValue(listCount)];
+        });
+    });
+    
+    context(@"when the number of objects is greater than 0", ^{
+        beforeEach(^{
+            numObjectsToRemove = 1;
+        });
+
+        context(@"when the relative object is nil", ^{
+            beforeEach(^{
+                relativeObject = nil;
+                [linkedList removeNumberOfObjects:numObjectsToRemove
+                               startingWithObject:relativeObject
+                                    movingForward:movingForward];
+                afterCount = [linkedList count];
+            });
+
+            it(@"leaves the linked list unchanged", ^{
+                [[theValue(afterCount) should] equal:theValue(listCount)];
+            });
+        });
+        
+        context(@"when the relative object is not in the linked list", ^{
+            beforeEach(^{
+                relativeObject = @"foo";
+                [linkedList removeNumberOfObjects:numObjectsToRemove
+                               startingWithObject:relativeObject
+                                    movingForward:movingForward];
+                afterCount = [linkedList count];
+            });
+
+            it(@"leaves the linked list unchanged", ^{
+                [[theValue(afterCount) should] equal:theValue(listCount)];
+            });
+        });
+        
+        context(@"when the relative object is in the linked list", ^{
+            beforeEach(^{
+                relativeObject = secondObject;
+                numObjectsToRemove = 2;
+                [linkedList removeNumberOfObjects:numObjectsToRemove
+                               startingWithObject:relativeObject
+                                    movingForward:movingForward];
+                afterCount = [linkedList count];
+            });
+
+            it(@"removes at most number of objects from the list", ^{
+                [[theValue(listCount - afterCount) should] beLessThanOrEqualTo:theValue(numObjectsToRemove)];
+            });
+
+            it(@"removes the relative object", ^{
+                BOOL containsRelativeObject = [linkedList containsObject:relativeObject];
+                [[theValue(containsRelativeObject) should] beFalse];
+            });
+
+            context(@"when moving forward", ^{
+                it(@"removes a number of objects after the relative object", ^{
+                    NSArray *predictedArray = @[firstObject];
+                    NSArray *listArray = [linkedList allObjects];
+                    BOOL didSucceed = [predictedArray isEqualToArray:listArray];
+                    [[theValue(didSucceed) should] beTrue];
+                });
+
+                context(@"when the removal results in the tail object being removed", ^{
+                    beforeEach(^{
+                        relativeObject = secondObject;
+                        numObjectsToRemove = 2;
+                        [linkedList removeNumberOfObjects:numObjectsToRemove
+                                       startingWithObject:relativeObject
+                                            movingForward:movingForward];
+                        afterCount = [linkedList count];
+                    });
+
+                    it(@"has a different tail", ^{
+                        [[[linkedList tailObject] shouldNot] equal:thirdObject];
+                    });
+                    it(@"updates the tail to point to the right object", ^{
+                        [[[linkedList tailObject] should] equal:firstObject];
+                    });
+                });
+            });
+
+            context(@"when moving backwards", ^{
+                beforeEach(^{
+                    linkedList = [NPLinkedList linkedListWithObjects:firstObject, secondObject, thirdObject, nil];
+                    listCount = [linkedList count];
+                    relativeObject = secondObject;
+                    numObjectsToRemove = 2;
+                    movingForward = NO;
+                    [linkedList removeNumberOfObjects:numObjectsToRemove
+                                   startingWithObject:relativeObject
+                                        movingForward:movingForward];
+                    afterCount = [linkedList count];
+                });
+
+                it(@"removes a number of objects before the relative object", ^{
+                    NSArray *predictedArray = @[thirdObject];
+                    NSArray *listArray = [linkedList allObjects];
+                    NSLog(@"Predicted array: %@", predictedArray);
+                    NSLog(@"List array: %@", listArray);
+                    BOOL didSucceed = [predictedArray isEqualToArray:listArray];
+                    [[theValue(didSucceed) should] beTrue];
+                });
+
+                context(@"when the removal results in the head object being removed", ^{
+                    beforeEach(^{
+                        linkedList = [NPLinkedList linkedListWithObjects:firstObject, secondObject, thirdObject, nil];
+                        listCount = [linkedList count];
+                        relativeObject = secondObject;
+                        numObjectsToRemove = 2;
+                        movingForward = NO;
+                        [linkedList removeNumberOfObjects:numObjectsToRemove
+                                       startingWithObject:relativeObject
+                                            movingForward:movingForward];
+                        afterCount = [linkedList count];
+                    });
+
+                    it(@"has a different head", ^{
+                        [[[linkedList tailObject] shouldNot] equal:firstObject];
+                    });
+                    it(@"updates the head to the right object", ^{
+                        [[[linkedList tailObject] should] equal:thirdObject];
+                    });
+                });
+            });
+
+            context(@"when the removal causes all objects to be removed", ^{
+                beforeEach(^{
+                    linkedList = [NPLinkedList linkedListWithObjects:firstObject, secondObject, thirdObject, nil];
+                    listCount = [linkedList count];
+                    relativeObject = firstObject;
+                    numObjectsToRemove = 3;
+                    movingForward = YES;
+                    [linkedList removeNumberOfObjects:numObjectsToRemove
+                                   startingWithObject:relativeObject
+                                        movingForward:movingForward];
+                    afterCount = [linkedList count];
+                });
+
+                it(@"sets the tail to nil", ^{
+                    [[linkedList tailObject] shouldBeNil];
+                });
+                it(@"sets the head to nil", ^{
+                    [[linkedList headObject] shouldBeNil];
+                });
+                it(@"removes all objects from the list", ^{
+                    [[theValue(afterCount) should] equal:theValue(0)];
+                });
+            });
+        });
+    });
 });
 
 describe(@"-replaceObject:withObject:", ^{
