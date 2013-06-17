@@ -382,50 +382,77 @@
     [self removeNode:node];
 }
 
-- (void)removeNumberOfObjects:(NSUInteger)numObjects afterObject:(id)anObject {
-    if (numObjects == 0 || !anObject || ![self containsObject:anObject]) {
+- (void)removeNumberOfObjects:(NSUInteger)numObjects
+           startingWithObject:(id)anObject
+                movingForward:(BOOL)moveForward {
+    if (numObjects == 0 ||
+        !anObject ||
+        ![self containsObject:anObject] ||
+        [self count] == 0) {
         return;
     }
 
-    NPLinkedListNode *leftBoundNode = [self nodeForObject:anObject];
-    NPLinkedListNode *rightBoundNode = leftBoundNode;
-    for (int i=0; i<numObjects; i++) {
-        if (!rightBoundNode.next) {
-            break;
-        }
-        NPLinkedListNode *previousNode = rightBoundNode;
-        rightBoundNode = rightBoundNode.next;
-        previousNode.prev = nil;
-        previousNode.next = nil;
-        previousNode = nil;
-    }
-
-    // Tie the two bounds together.
-    leftBoundNode.next = rightBoundNode;
-    rightBoundNode.prev = leftBoundNode;
-}
-
-- (void)removeNumberOfObjects:(NSUInteger)numObjects beforeObject:(id)anObject {
-    if (numObjects == 0 || !anObject || ![self containsObject:anObject]) {
+    NPLinkedListNode *targetNode = [self nodeForObject:anObject];
+    NPLinkedListNode *anchorNode = moveForward ? targetNode.prev : targetNode.next;
+    if (!targetNode) {
         return;
     }
 
-    NPLinkedListNode *rightBoundNode = [self nodeForObject:anObject];
-    NPLinkedListNode *leftBoundNode = rightBoundNode;
+    NPLinkedListNode *nodeToRemove = targetNode;
+    NPLinkedListNode *gapEdgeNode = nil;
     for (int i=0; i<numObjects; i++) {
-        if (!leftBoundNode.prev) {
+        if (!nodeToRemove) {
             break;
         }
-        NPLinkedListNode *previousNode = leftBoundNode;
-        leftBoundNode = leftBoundNode.next;
-        previousNode.prev = nil;
-        previousNode.next = nil;
-        previousNode = nil;
+
+        // Grab a pointer to the next object in line for the next iteration
+        NPLinkedListNode *nextObjectToRemove = moveForward ? nodeToRemove.next : nodeToRemove.prev;
+
+        // Keep track of the node at the edge of the potential gap
+        gapEdgeNode = moveForward ? nodeToRemove.next : nodeToRemove.prev;
+
+        // If we're moving forward and about to remove the tail, update it
+        if (self.tail == nodeToRemove) {
+            self.tail = gapEdgeNode;
+        }
+
+        // If we're moving backwards and about to remove the head, update it
+        if (self.head == nodeToRemove) {
+            self.head = gapEdgeNode;
+        }
+
+        // Remove the current node
+        NPLinkedListNode *lastObject = moveForward ? nodeToRemove.prev : nodeToRemove.next;
+        nodeToRemove.prev = nil;
+        nodeToRemove.next = nil;
+        nodeToRemove = nil;
+
+        if (moveForward) {
+            lastObject.next = nil;
+        } else {
+            lastObject.prev = nil;
+        }
+
+        // Point to the next node
+        nodeToRemove = nextObjectToRemove;
     }
 
-    // Tie the two bounds together.
-    leftBoundNode.next = rightBoundNode;
-    rightBoundNode.prev = leftBoundNode;
+    if (!self.tail) {
+        self.tail = anchorNode;
+    }
+
+    if (!self.head) {
+        self.head = anchorNode;
+    }
+
+    // We might have a gap in the linked list, so we need to close it
+    if (moveForward) {
+        anchorNode.next = gapEdgeNode;
+        gapEdgeNode.prev = anchorNode;
+    } else {
+        anchorNode.prev = gapEdgeNode;
+        gapEdgeNode.next = anchorNode;
+    }
 }
 
 #pragma mark - Replacing Objects

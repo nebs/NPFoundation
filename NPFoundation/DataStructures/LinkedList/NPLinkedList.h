@@ -216,20 +216,15 @@
 - (void)removeObject:(id)anObject;
 
 /**
- Removes a number of connected objects from the linked list starting at a given object and moving forward.  If anObject is not in the linked list then nothing is done.
+ Removes a string of linked objects starting at the given object and deleting that object and a number of other conntected objects.  The number of objects to remove is passed in as the first argument.  The removal can either move forward in the list or backwards.
 
  @param numObjects The number of objects to remove.
- @param anObject The object to start removing from.  This object is included in the numObjects count.
+ @param anObject The object to start removing from.  This object will also be removed and is included in the numObjects count.
+ @param moveForward A boolean indicating whether the objects to remove are after (forward) or before (backward) relative to the targeted object.
  */
-- (void)removeNumberOfObjects:(NSUInteger)numObjects afterObject:(id)anObject;
-
-/**
- Removes a number of connected objects from the linked list starting at a given object and moving backwards.  If the object is not in the linked list then nothing is done.
-
- @param numObjects The number of objects to remove.
- @param anObject The object to start removing from.  This object is included in the numObjects count.
- */
-- (void)removeNumberOfObjects:(NSUInteger)numObjects beforeObject:(id)anObject;
+- (void)removeNumberOfObjects:(NSUInteger)numObjects
+           startingWithObject:(id)anObject
+                movingForward:(BOOL)moveForward;
 
 
 ///---------------------------------------------
