@@ -286,6 +286,7 @@ describe(@"-containsObject:", ^{
             [[theValue(isContained) should] beFalse];
         });
     });
+
     context(@"with an object that isn't in the list", ^{
         beforeEach(^{
             linkedList = [NPLinkedList linkedListWithObject:@"foo"];
@@ -297,6 +298,7 @@ describe(@"-containsObject:", ^{
             [[theValue(isContained) should] beFalse];
         });
     });
+
     context(@"with an object that's in the list", ^{
         beforeEach(^{
             anObject = @"foo";
@@ -329,6 +331,7 @@ describe(@"-count", ^{
             [[theValue(count) should] equal:theValue(0)];
         });
     });
+
     context(@"when the list has one object", ^{
         beforeEach(^{
             linkedList = [NPLinkedList linkedListWithObject:@"foo"];
@@ -339,6 +342,7 @@ describe(@"-count", ^{
             [[theValue(count) should] equal:theValue(1)];
         });
     });
+
     context(@"when the list has more than one object", ^{
         beforeEach(^{
             linkedList = [NPLinkedList linkedListWithObjects:@"foo", @"bar", @"buzz", nil];
@@ -591,6 +595,7 @@ describe(@"-sortedLinkedListUsingComparator:", ^{
             [[theValue([sortedLinkedList count]) should] equal:theValue(0)];
         });
     });
+
     context(@"with a linked list containing only one object", ^{
         NSNumber *testObject = @1;
 
@@ -758,6 +763,7 @@ describe(@"-insertObject:afterObject:", ^{
             [[theValue(newListCount) should] equal:theValue(linkedListCount)];
         });
     });
+
     context(@"when the relative object is nil", ^{
         __block NSUInteger newListCount = 0;
 
@@ -851,6 +857,7 @@ describe(@"-insertObject:beforeObject:", ^{
             [[theValue(newListCount) should] equal:theValue(linkedListCount)];
         });
     });
+
     context(@"when the relative object is nil", ^{
         __block NSUInteger newListCount = 0;
 
@@ -1162,6 +1169,7 @@ describe(@"-removeAllObjects", ^{
             [[theValue(countAfter) should] equal:theValue(0)];
         });
     });
+
     context(@"when the list contains least one object", ^{
         beforeEach(^{
             linkedList = [NPLinkedList linkedListWithObjects:@"A", @"B", @"C", nil];
@@ -1200,6 +1208,7 @@ describe(@"-removeHeadObject", ^{
             [[theValue(countAfter) should] equal:theValue(0)];
         });
     });
+
     context(@"when the list contains exactly one object", ^{
         beforeEach(^{
             linkedList = [NPLinkedList linkedListWithObject:headObject];
@@ -1214,6 +1223,7 @@ describe(@"-removeHeadObject", ^{
             [[linkedList headObject] shouldBeNil];
         });
     });
+
     context(@"when the list contains at least 2 objects", ^{
         it(@"drops the object count by 1", ^{
             [[theValue(countAfter) should] equal:theValue(listCount - 1)];
@@ -1252,6 +1262,7 @@ describe(@"-removeTailObject", ^{
             [[theValue(countAfter) should] equal:theValue(0)];
         });
     });
+
     context(@"when the list contains exactly one object", ^{
         beforeEach(^{
             linkedList = [NPLinkedList linkedListWithObject:tailObject];
@@ -1266,6 +1277,7 @@ describe(@"-removeTailObject", ^{
             [[linkedList tailObject] shouldBeNil];
         });
     });
+
     context(@"when the list contains at least 2 objects", ^{
         it(@"drops the object count by 1", ^{
             [[theValue(countAfter) should] equal:theValue(listCount - 1)];
@@ -1380,6 +1392,7 @@ describe(@"-removeObject:", ^{
                 });
             });
         });
+
         context(@"when the list contains only one object", ^{
             beforeEach(^{
                 anObject = firstObject;
