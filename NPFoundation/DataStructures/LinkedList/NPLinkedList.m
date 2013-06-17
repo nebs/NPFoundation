@@ -13,7 +13,9 @@
 @property (nonatomic) NPLinkedListNode *head;
 @property (nonatomic) NPLinkedListNode *tail;
 
+- (id)initWithFirstObject:(id)firstObj objectList:(va_list)args;
 - (NPLinkedListNode *)nodeForObject:(id)anObject;
+- (void)removeNode:(NPLinkedListNode *)aNode;
 + (NPLinkedList *)linkedListByMergingLinkedList:(NPLinkedList *)leftList
                                  withLinkedList:(NPLinkedList *)rightList
                                 usingComparator:(NSComparator)cmptr;
@@ -22,14 +24,24 @@
 @implementation NPLinkedList
 
 #pragma mark - Helpers
+- (id)initWithFirstObject:(id)firstObj objectList:(va_list)args {
+    self = [super init];
+    if (self) {
+        for (id anObject = firstObj; anObject != nil; anObject = va_arg(args, id)) {
+            [self addObject:anObject];
+        }
+    }
+    return self;
+}
+
 - (NPLinkedListNode *)nodeForObject:(id)anObject {
     if (!anObject) {
         return nil;
     }
 
-    NPLinkedListNode *nextNode = self.tail;
+    NPLinkedListNode *nextNode = self.head;
     while (nextNode) {
-        if ([nextNode.object isEqual:anObject]) {
+        if (nextNode.object == anObject) {
             return nextNode;
         }
         nextNode = nextNode.next;
@@ -55,18 +67,26 @@
     NPLinkedListNode *prev = aNode.prev;
     NPLinkedListNode *next = aNode.next;
 
-    NPLinkedListNode *newNext = prev.next;
-    prev.next = next.prev;
-    next.prev = newNext;
+    NPLinkedListNode *newNext = next;
+    prev.next = next;
+    newNext.prev = prev;
 
     aNode.next = nil;
     aNode.prev = nil;
+    aNode = nil;
 }
 
 + (NPLinkedList *)linkedListByMergingLinkedList:(NPLinkedList *)leftList
                                  withLinkedList:(NPLinkedList *)rightList
                                 usingComparator:(NSComparator)cmptr {
     NPLinkedList *mergedLinkedList = [NPLinkedList new];
+
+    if (!cmptr) {
+        [mergedLinkedList addObjectsFromLinkedList:leftList];
+        [mergedLinkedList addObjectsFromLinkedList:rightList];
+        return mergedLinkedList;
+    }
+
     while ([leftList count] > 0 || [rightList count] > 0) {
         if ([leftList count] > 0 && [rightList count] > 0) {
             NSComparisonResult result = cmptr(leftList.head.object, rightList.head.object);
@@ -104,29 +124,31 @@
 + (id)linkedListWithObjects:(id)firstObj, ... {
     va_list args;
     va_start(args, firstObj);
-    NPLinkedList *linkedList = [[NPLinkedList alloc] initWithObjects:firstObj, args, nil];
+    NPLinkedList *linkedList = [[NPLinkedList alloc] initWithFirstObject:firstObj objectList:args];
     va_end(args);
     return linkedList;
 }
 
 #pragma mark - Initializing a Linked List
 - (id)initWithLinkedList:(NPLinkedList *)aLinkedList {
-    return [aLinkedList map:^id(id object) {
-        return [object copy];
-    }];
+    self = [super init];
+    if (self) {
+        for (id object in aLinkedList) {
+            [self addObject:[object copy]];
+        }
+    }
+    return self;
 }
 
 - (id)initWithObjects:(id)firstObj, ... {
-    NPLinkedList *linkedList = [NPLinkedList linkedList];
-
-    va_list args;
-    va_start(args, firstObj);
-    for (id anObject = firstObj; anObject != nil; anObject = va_arg(args, id)) {
-        [linkedList addObject:anObject];
+    self = [super init];
+    if (self) {
+        va_list args;
+        va_start(args, firstObj);
+        self = [self initWithFirstObject:firstObj objectList:args];
+        va_end(args);
     }
-    va_end(args);
-
-    return linkedList;
+    return self;
 }
 
 #pragma mark - Querying a Linked List
@@ -159,7 +181,7 @@
 #pragma mark - Sorting
 + (NPLinkedList *)sortedLinkedList:(NPLinkedList *)aLinkedList
                    usingComparator:(NSComparator)cmptr {
-    if ([aLinkedList count] <= 1) {
+    if ([aLinkedList count] <= 1 || !cmptr) {
         return aLinkedList;
     }
 
@@ -190,6 +212,10 @@
 }
 
 - (NPLinkedList *)sortedLinkedListUsingComparator:(NSComparator)cmptr {
+    if (!cmptr) {
+        return self;
+    }
+
     return [NPLinkedList sortedLinkedList:self usingComparator:cmptr];
 }
 
@@ -216,25 +242,93 @@
 }
 
 - (void)addObjectsFromLinkedList:(NPLinkedList *)aLinkedListed {
-    for (id object in self) {
+    if (!aLinkedListed) {
+        return;
+    }
+
+    for (id object in aLinkedListed) {
         [self addObject:object];
     }
 }
 
 - (void)insertObject:(id)anObject afterObject:(id)prevObject {
-    // TODO
+    if (!anObject || !prevObject) {
+        return;
+    }
+
+    NPLinkedListNode *relativeNode = [self nodeForObject:prevObject];
+    if (!relativeNode) {
+        return;
+    }
+
+    NPLinkedListNode *newNode = [NPLinkedListNode new];
+    newNode.object = anObject;
+
+    newNode.next = relativeNode.next;
+    newNode.prev = relativeNode;
+
+    NPLinkedListNode *afterNode = relativeNode.next;
+    afterNode.prev = newNode;
+    relativeNode.next = newNode;
+
+    if (prevObject == [self tailObject]) {
+        self.tail = newNode;
+    }
 }
 
 - (void)insertObject:(id)anObject beforeObject:(id)nextObject {
-    // TODO
+    if (!anObject || !nextObject) {
+        return;
+    }
+
+    NPLinkedListNode *relativeNode = [self nodeForObject:nextObject];
+    if (!relativeNode) {
+        return;
+    }
+
+    NPLinkedListNode *newNode = [NPLinkedListNode new];
+    newNode.object = anObject;
+
+    newNode.next = relativeNode;
+    newNode.prev = relativeNode.prev;
+
+    NPLinkedListNode *beforeNode = relativeNode.prev;
+    beforeNode.next = newNode;
+    relativeNode.prev = newNode;
+
+    if (nextObject == [self headObject]) {
+        self.head = newNode;
+    }
 }
 
 - (void)insertObjectsFromLinkedList:(NPLinkedList *)aLinkedList afterObject:(id)prevObject {
-    // TODO
+    if (!aLinkedList ||
+        !prevObject ||
+        [aLinkedList count] == 0 ||
+        ![self containsObject:prevObject]) {
+        return;
+    }
+
+    // Insert the objects in reverse order one by one.
+    NSArray *newObjects = [aLinkedList allObjects];
+    for (int i=[newObjects count]-1; i>=0; i--) {
+        [self insertObject:newObjects[i] afterObject:prevObject];
+    }
 }
 
 - (void)insertObjectsFromLinkedList:(NPLinkedList *)aLinkedList beforeObject:(id)nextObject {
-    // TODO
+    if (!aLinkedList ||
+        !nextObject ||
+        [aLinkedList count] == 0 ||
+        ![self containsObject:nextObject]) {
+        return;
+    }
+
+    // Insert the objects in forward order one by one.
+    NSArray *newObjects = [aLinkedList allObjects];
+    for (int i=0; i<[newObjects count]; i++) {
+        [self insertObject:newObjects[i] beforeObject:nextObject];
+    }
 }
 
 #pragma mark - Removing Objects
@@ -253,6 +347,10 @@
     currentHead.next = nil;
     currentHead.prev = nil;
     currentHead = nil;
+
+    if (!self.head) {
+        self.tail = nil;
+    }
 }
 
 - (void)removeTailObject {
@@ -265,28 +363,117 @@
     currentTail.next = nil;
     currentTail.prev = nil;
     currentTail = nil;
+
+    if (!self.tail) {
+        self.head = nil;
+    }
 }
 
 - (void)removeObject:(id)anObject {
+    if (!anObject) {
+        return;
+    }
+
     NPLinkedListNode *node = [self nodeForObject:anObject];
+    if (!node) {
+        return;
+    }
+
     [self removeNode:node];
 }
 
 - (void)removeNumberOfObjects:(NSUInteger)numObjects afterObject:(id)anObject {
-    // TODO
+    if (numObjects == 0 || !anObject || ![self containsObject:anObject]) {
+        return;
+    }
+
+    NPLinkedListNode *leftBoundNode = [self nodeForObject:anObject];
+    NPLinkedListNode *rightBoundNode = leftBoundNode;
+    for (int i=0; i<numObjects; i++) {
+        if (!rightBoundNode.next) {
+            break;
+        }
+        NPLinkedListNode *previousNode = rightBoundNode;
+        rightBoundNode = rightBoundNode.next;
+        previousNode.prev = nil;
+        previousNode.next = nil;
+        previousNode = nil;
+    }
+
+    // Tie the two bounds together.
+    leftBoundNode.next = rightBoundNode;
+    rightBoundNode.prev = leftBoundNode;
 }
 
 - (void)removeNumberOfObjects:(NSUInteger)numObjects beforeObject:(id)anObject {
-    // TODO
+    if (numObjects == 0 || !anObject || ![self containsObject:anObject]) {
+        return;
+    }
+
+    NPLinkedListNode *rightBoundNode = [self nodeForObject:anObject];
+    NPLinkedListNode *leftBoundNode = rightBoundNode;
+    for (int i=0; i<numObjects; i++) {
+        if (!leftBoundNode.prev) {
+            break;
+        }
+        NPLinkedListNode *previousNode = leftBoundNode;
+        leftBoundNode = leftBoundNode.next;
+        previousNode.prev = nil;
+        previousNode.next = nil;
+        previousNode = nil;
+    }
+
+    // Tie the two bounds together.
+    leftBoundNode.next = rightBoundNode;
+    rightBoundNode.prev = leftBoundNode;
 }
 
 #pragma mark - Replacing Objects
 - (void)replaceObject:(id)anObject withObject:(id)newObject {
-    // TODO
+    if (!anObject || !newObject || ![self containsObject:anObject]) {
+        return;
+    }
+
+    NPLinkedListNode *nodeToReplace = [self nodeForObject:anObject];
+    if (!nodeToReplace) {
+        return;
+    }
+
+    NPLinkedListNode *newNode = [NPLinkedListNode new];
+    newNode.object = newObject;
+
+    newNode.next = nodeToReplace.next;
+    newNode.prev = nodeToReplace.prev;
+
+    NPLinkedListNode *previousNode = nodeToReplace.prev;
+    NPLinkedListNode *nextNode = nodeToReplace.next;
+
+    if (previousNode) {
+        previousNode.next = newNode;
+    }
+
+    if (newNode) {
+        nextNode.prev = newNode;
+    }
+
+    [self removeNode:nodeToReplace];
 }
 
 - (void)replaceObject:(id)anObject withLinkedList:(id)aLinkedList {
-    // TODO
+    if (!anObject ||
+        !aLinkedList ||
+        [aLinkedList count] == 0 ||
+        ![self containsObject:anObject]) {
+        return;
+    }
+
+    NPLinkedListNode *nodeToReplace = [self nodeForObject:anObject];
+    if (!nodeToReplace) {
+        return;
+    }
+
+    [self insertObjectsFromLinkedList:aLinkedList afterObject:anObject];
+    [self removeNode:nodeToReplace];
 }
 
 #pragma mark - Enumeration
