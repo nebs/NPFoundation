@@ -1729,7 +1729,159 @@ describe(@"-replaceObject:withObject:", ^{
 });
 
 describe(@"-replaceObject:withLinkedList:", ^{
-    // TODO
+    __block NPLinkedList *linkedList = nil;
+    __block NPLinkedList *newLinkedList = nil;
+    __block NSString *targetObject = nil;
+    __block NSString *oldFirstObject = @"A";
+    __block NSString *oldSecondObject = @"B";
+    __block NSString *oldThirdObject = @"C";
+    __block NSString *newFirstObject = @"D";
+    __block NSString *newSecondObject = @"E";
+    __block NSString *newThirdObject = @"F";
+    __block NSUInteger listCount = 0;
+    __block NSUInteger newListCount = 0;
+    __block NSUInteger afterCount = 0;
+
+    beforeEach(^{
+        linkedList = [NPLinkedList linkedListWithObjects:oldFirstObject, oldSecondObject, oldThirdObject, nil];
+        listCount = [linkedList count];
+        newLinkedList = [NPLinkedList linkedListWithObjects:newFirstObject, newSecondObject, newThirdObject, nil];
+        newListCount = [newLinkedList count];
+        afterCount = 0;
+        targetObject = nil;
+    });
+
+    context(@"when the target object is nil", ^{
+        beforeEach(^{
+            [linkedList replaceObject:targetObject withLinkedList:newLinkedList];
+            afterCount = [linkedList count];
+        });
+
+        it(@"leaves the list unchanged", ^{
+            [[theValue(afterCount) should] equal:theValue(listCount)];
+        });
+    });
+
+    context(@"when the target object is not in the list", ^{
+        beforeEach(^{
+            targetObject = @"foo";
+            [linkedList replaceObject:targetObject withLinkedList:newLinkedList];
+            afterCount = [linkedList count];
+        });
+
+        it(@"leaves the list unchanged", ^{
+            [[theValue(afterCount) should] equal:theValue(listCount)];
+        });
+    });
+
+    context(@"when the target object is in the list", ^{
+        beforeEach(^{
+            targetObject = oldSecondObject;
+            [linkedList replaceObject:targetObject withLinkedList:newLinkedList];
+            afterCount = [linkedList count];
+        });
+
+        it(@"removes the target object from the list", ^{
+            [[theValue([linkedList containsObject:targetObject]) should] beFalse];
+        });
+
+        context(@"when the new linked list is nil", ^{
+            beforeEach(^{
+                linkedList = [NPLinkedList linkedListWithObjects:oldFirstObject, oldSecondObject, oldThirdObject, nil];
+                listCount = [linkedList count];
+                targetObject = oldSecondObject;
+                newLinkedList = nil;
+                [linkedList replaceObject:targetObject withLinkedList:newLinkedList];
+                afterCount = [linkedList count];
+            });
+
+            it(@"removes the target object from the list", ^{
+                [[theValue([linkedList containsObject:targetObject]) should] beFalse];
+            });
+        });
+
+        context(@"when the new linked list is empty", ^{
+            beforeEach(^{
+                linkedList = [NPLinkedList linkedListWithObjects:oldFirstObject, oldSecondObject, oldThirdObject, nil];
+                listCount = [linkedList count];
+                targetObject = oldSecondObject;
+                newLinkedList = [NPLinkedList linkedList];
+                [linkedList replaceObject:targetObject withLinkedList:newLinkedList];
+                afterCount = [linkedList count];
+            });
+
+            it(@"removes the target object from the list", ^{
+                [[theValue([linkedList containsObject:targetObject]) should] beFalse];
+            });
+        });
+
+        context(@"when the new linked list contains exactly one object", ^{
+            beforeEach(^{
+                linkedList = [NPLinkedList linkedListWithObjects:oldFirstObject, oldSecondObject, oldThirdObject, nil];
+                listCount = [linkedList count];
+                targetObject = oldSecondObject;
+                newLinkedList = [NPLinkedList linkedListWithObject:newFirstObject];
+                [linkedList replaceObject:targetObject withLinkedList:newLinkedList];
+                afterCount = [linkedList count];
+            });
+
+            it(@"doesn't change the list count", ^{
+                [[theValue(afterCount) should] equal:theValue(listCount)];
+            });
+            it(@"adds the object from the new linked list into this linked list", ^{
+                [[theValue([linkedList containsObject:newFirstObject]) should] beTrue];
+            });
+        });
+
+        context(@"when the new linked list contains more than one object", ^{
+            beforeEach(^{
+                linkedList = [NPLinkedList linkedListWithObjects:oldFirstObject, oldSecondObject, oldThirdObject, nil];
+                listCount = [linkedList count];
+                targetObject = oldSecondObject;
+                [linkedList replaceObject:targetObject withLinkedList:newLinkedList];
+                afterCount = [linkedList count];
+            });
+
+            it(@"increases the list count by the count of the new list - 1", ^{
+                [[theValue(afterCount) should] equal:theValue(listCount + newListCount -1)];
+            });
+            it(@"adds all the objects from the new linked list into this linked list", ^{
+                BOOL hasAllNewItems = YES;
+                hasAllNewItems &= [linkedList containsObject:newFirstObject];
+                hasAllNewItems &= [linkedList containsObject:newSecondObject];
+                hasAllNewItems &= [linkedList containsObject:newThirdObject];
+                [[theValue(hasAllNewItems) should] beTrue];
+            });
+        });
+
+        context(@"when the target object is the head", ^{
+            beforeEach(^{
+                linkedList = [NPLinkedList linkedListWithObjects:oldFirstObject, oldSecondObject, oldThirdObject, nil];
+                listCount = [linkedList count];
+                targetObject = oldFirstObject;
+                [linkedList replaceObject:targetObject withLinkedList:newLinkedList];
+                afterCount = [linkedList count];
+            });
+
+            it(@"makes the head point to the first object in the new linked list", ^{
+                [[[linkedList headObject] should] equal:newFirstObject];
+            });
+        });
+
+        context(@"when the target object is the tail", ^{
+            beforeEach(^{
+                linkedList = [NPLinkedList linkedListWithObjects:oldFirstObject, oldSecondObject, oldThirdObject, nil];
+                listCount = [linkedList count];
+                targetObject = oldThirdObject;
+                [linkedList replaceObject:targetObject withLinkedList:newLinkedList];
+                afterCount = [linkedList count];
+            });
+
+            it(@"makes the tail point to the last object in the new linked list", ^{
+                [[[linkedList tailObject] should] equal:newThirdObject];
+            });
+        });
+    });
 });
 
 describe(@"-map:", ^{
