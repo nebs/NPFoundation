@@ -1947,4 +1947,88 @@ describe(@"-map:", ^{
     });
 });
 
+describe(@"-isEqual:", ^{
+    __block NPLinkedList *linkedList;
+    __block NPLinkedList *inputLinkedList;
+    __block BOOL isEqualResult = NO;
+
+    beforeEach(^{
+        linkedList = [NPLinkedList linkedListWithObjects:@"A", @"B", @"C", nil];
+        inputLinkedList = [NPLinkedList linkedListWithObjects:@"A", @"B", @"C", nil];
+        isEqualResult = NO;
+    });
+
+    context(@"when the lists are both empty", ^{
+        beforeEach(^{
+            linkedList = [NPLinkedList linkedList];
+            inputLinkedList = [NPLinkedList linkedList];
+            isEqualResult = [linkedList isEqual:inputLinkedList];
+        });
+
+        it(@"returns YES", ^{
+            [[theValue(isEqualResult) should] beTrue];
+        });
+    });
+
+    context(@"when the input isn't a linked list", ^{
+        beforeEach(^{
+            linkedList = [NPLinkedList linkedList];
+            inputLinkedList = [NPLinkedList linkedList];
+            isEqualResult = [linkedList isEqual:@"foo"];
+        });
+
+        it(@"returns NO", ^{
+            [[theValue(isEqualResult) should] beFalse];
+        });
+    });
+
+    context(@"when the lists both contain at least one object", ^{
+        context(@"when the lists are mostly equal but differ in size", ^{
+            beforeEach(^{
+                linkedList = [NPLinkedList linkedListWithObjects:@"A", @"B", @"C", nil];
+                inputLinkedList = [NPLinkedList linkedListWithObjects:@"A", @"B", nil];
+                isEqualResult = [linkedList isEqual:inputLinkedList];
+            });
+
+            it(@"returns NO", ^{
+                [[theValue(isEqualResult) should] beFalse];
+            });
+        });
+
+        context(@"when the lists aren't equal", ^{
+            beforeEach(^{
+                linkedList = [NPLinkedList linkedListWithObjects:@"A", @"B", @"C", nil];
+                inputLinkedList = [NPLinkedList linkedListWithObjects:@"D", @"E", @"F", nil];
+                isEqualResult = [linkedList isEqual:inputLinkedList];
+            });
+
+            it(@"returns NO", ^{
+                [[theValue(isEqualResult) should] beFalse];
+            });
+        });
+
+        context(@"when the input list is nil", ^{
+            beforeEach(^{
+                linkedList = [NPLinkedList linkedListWithObjects:@"A", @"B", @"C", nil];
+                inputLinkedList = nil;
+                isEqualResult = [linkedList isEqual:inputLinkedList];
+            });
+
+            it(@"returns NO", ^{
+                [[theValue(isEqualResult) should] beFalse];
+            });
+        });
+
+        context(@"when the lists are equal", ^{
+            beforeEach(^{
+                isEqualResult = [linkedList isEqual:inputLinkedList];
+            });
+
+            it(@"returns YES", ^{
+                [[theValue(isEqualResult) should] beTrue];
+            });
+        });
+    });
+});
+
 SPEC_END

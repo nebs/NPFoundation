@@ -585,4 +585,27 @@
     return string;
 }
 
+- (BOOL)isEqual:(id)anObject {
+    if (![anObject isMemberOfClass:[NPLinkedList class]]) {
+        return NO;
+    }
+
+    NPLinkedList *otherLinkedList = (NPLinkedList *)anObject;
+
+    NPLinkedListNode *nextNode = self.head;
+    NPLinkedListNode *nextOtherNode = otherLinkedList.head;
+
+    BOOL areListsEqual = YES;
+    while(nextNode && nextOtherNode) {
+        areListsEqual &= [nextNode.object isEqual:nextOtherNode.object];
+
+        nextNode = nextNode.next;
+        nextOtherNode = nextOtherNode.next;
+    }
+
+    areListsEqual &= (!nextOtherNode && !nextNode);
+
+    return areListsEqual;
+}
+
 @end
