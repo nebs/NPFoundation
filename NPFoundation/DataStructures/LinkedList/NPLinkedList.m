@@ -346,6 +346,12 @@
 
 #pragma mark - Removing Objects
 - (void)removeAllObjects {
+    // Disconnect all nodes
+    NSArray *allNodes = [self allNodes];
+    for (id node in allNodes) {
+        [node disconnect];
+    }
+
     self.head = nil;
     self.tail = nil;
 }
