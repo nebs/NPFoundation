@@ -14,6 +14,7 @@
 @property (nonatomic) NPLinkedListNode *tail;
 
 - (id)initWithFirstObject:(id)firstObj objectList:(va_list)args;
+- (NSArray *)allNodes;
 - (NPLinkedListNode *)nodeForObject:(id)anObject;
 - (void)removeNode:(NPLinkedListNode *)aNode;
 + (NPLinkedList *)linkedListByMergingLinkedList:(NPLinkedList *)leftList
@@ -32,6 +33,18 @@
         }
     }
     return self;
+}
+
+- (NSArray *)allNodes {
+    NSMutableArray *array = [NSMutableArray array];
+    NPLinkedListNode *nextNode = self.head;
+    while (nextNode) {
+        if (nextNode) {
+            [array addObject:nextNode];
+        }
+        nextNode = nextNode.next;
+    }
+    return array;
 }
 
 - (NPLinkedListNode *)nodeForObject:(id)anObject {
