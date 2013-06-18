@@ -513,7 +513,7 @@
     [self removeNode:nodeToReplace];
 }
 
-#pragma mark - Enumeration
+#pragma mark - Enumerating
 - (NPLinkedList *)map:(id (^)(id object))mapBlock {
     if (!mapBlock) {
         return nil;
