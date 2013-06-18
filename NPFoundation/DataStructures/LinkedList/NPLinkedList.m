@@ -457,7 +457,12 @@
 
 #pragma mark - Replacing Objects
 - (void)replaceObject:(id)anObject withObject:(id)newObject {
-    if (!anObject || !newObject || ![self containsObject:anObject]) {
+    if (!anObject || ![self containsObject:anObject]) {
+        return;
+    }
+
+    if (!newObject) {
+        [self removeObject:anObject];
         return;
     }
 
@@ -466,24 +471,7 @@
         return;
     }
 
-    NPLinkedListNode *newNode = [NPLinkedListNode new];
-    newNode.object = newObject;
-
-    newNode.next = nodeToReplace.next;
-    newNode.prev = nodeToReplace.prev;
-
-    NPLinkedListNode *previousNode = nodeToReplace.prev;
-    NPLinkedListNode *nextNode = nodeToReplace.next;
-
-    if (previousNode) {
-        previousNode.next = newNode;
-    }
-
-    if (newNode) {
-        nextNode.prev = newNode;
-    }
-
-    [self removeNode:nodeToReplace];
+    nodeToReplace.object = newObject;
 }
 
 - (void)replaceObject:(id)anObject withLinkedList:(id)aLinkedList {
