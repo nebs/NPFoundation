@@ -41,7 +41,7 @@
 
     NPLinkedListNode *nextNode = self.head;
     while (nextNode) {
-        if (nextNode.object == anObject) {
+        if ([nextNode.object isEqual:anObject]) {
             return nextNode;
         }
         nextNode = nextNode.next;
