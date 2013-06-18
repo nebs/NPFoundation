@@ -1885,7 +1885,66 @@ describe(@"-replaceObject:withLinkedList:", ^{
 });
 
 describe(@"-map:", ^{
-    // TODO
+    __block NPLinkedList *linkedList = nil;
+    __block NPLinkedList *outputLinkedList = nil;
+    __block NSUInteger outputCount = 0;
+    __block NSUInteger listCount = 0;
+    NSString *prefixString = @"FOO_";
+    __block NSString *firstObject = @"A";
+    __block NSString *secondObject = @"B";
+    __block NSString *thirdObject = @"C";
+
+    beforeEach(^{
+        linkedList = [NPLinkedList linkedListWithObjects:firstObject, secondObject, thirdObject, nil];
+        listCount = [linkedList count];
+        outputCount = 0;
+    });
+
+    context(@"when the block is nil", ^{
+        beforeEach(^{
+            outputLinkedList = [linkedList map:nil];
+        });
+
+        it(@"returns nil", ^{
+            [outputLinkedList shouldBeNil];
+        });
+    });
+
+    context(@"when the block is valid", ^{
+        context(@"when the list is empty", ^{
+            beforeEach(^{
+                linkedList = [NPLinkedList linkedList];
+                outputLinkedList = [linkedList map:^id(id object) {
+                    return [NSString stringWithFormat:@"%@%@", prefixString, object];
+                }];
+                outputCount = [outputLinkedList count];
+            });
+
+            it(@"returns an empty list", ^{
+                [[theValue(outputCount) should] equal:theValue(0)];
+            });
+        });
+
+        context(@"when the list contains at least one object", ^{
+            beforeEach(^{
+                outputLinkedList = [linkedList map:^id(id object) {
+                    return [NSString stringWithFormat:@"%@%@", prefixString, object];
+                }];
+                outputCount = [outputLinkedList count];
+            });
+
+            it(@"returns a new list with the same count as the original list", ^{
+                [[theValue(outputCount) should] equal:theValue(listCount)];
+            });
+            it(@"returns a new list containing objects returned by the map block", ^{
+                BOOL hasAllNewObjects = YES;
+                hasAllNewObjects &= [outputLinkedList containsObject:[NSString stringWithFormat:@"%@%@", prefixString, firstObject]];
+                hasAllNewObjects &= [outputLinkedList containsObject:[NSString stringWithFormat:@"%@%@", prefixString, secondObject]];
+                hasAllNewObjects &= [outputLinkedList containsObject:[NSString stringWithFormat:@"%@%@", prefixString, thirdObject]];
+                [[theValue(hasAllNewObjects) should] beTrue];
+            });
+        });
+    });
 });
 
 SPEC_END
