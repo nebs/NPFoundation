@@ -249,6 +249,16 @@
 
 
 ///---------------------------------------------
+/// @name Moving Objects
+///---------------------------------------------
+
+/**
+ Reverses the linked list.  The head and tail get swapped and the order of the objects becomes reversed.
+ */
+- (void)reverse;
+
+
+///---------------------------------------------
 /// @name Enumerating
 ///---------------------------------------------
 

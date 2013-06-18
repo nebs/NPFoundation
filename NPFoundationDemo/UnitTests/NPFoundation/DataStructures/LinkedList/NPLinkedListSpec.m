@@ -1884,6 +1884,53 @@ describe(@"-replaceObject:withLinkedList:", ^{
     });
 });
 
+describe(@"-reverse", ^{
+    __block NPLinkedList *linkedList = nil;
+    __block NSUInteger listCount = 0;
+    __block NSUInteger afterCount = 0;
+    __block NSString *firstObject = @"A";
+    __block NSString *secondObject = @"B";
+    __block NSString *thirdObject = @"C";
+
+    beforeEach(^{
+        linkedList = [NPLinkedList linkedListWithObjects:firstObject, secondObject, thirdObject, nil];
+        listCount = [linkedList count];
+    });
+
+    context(@"when the list is empty", ^{
+        beforeEach(^{
+            linkedList = [NPLinkedList linkedList];
+            listCount = [linkedList count];
+            [linkedList reverse];
+            afterCount = [linkedList count];
+        });
+
+        it(@"leaves the list unchanged", ^{
+            [[theValue(afterCount) should] equal:theValue(listCount)];
+        });
+    });
+
+    context(@"when the list contains at least one object", ^{
+        beforeEach(^{
+            [linkedList reverse];
+            afterCount = [linkedList count];
+        });
+
+        it(@"reverses the list", ^{
+            NSArray *predictedResultArray = @[thirdObject, secondObject, firstObject];
+            NSArray *listObjects = [linkedList allObjects];
+            BOOL didSucceed = [predictedResultArray isEqualToArray:listObjects];
+            [[theValue(didSucceed) should] beTrue];
+        });
+        it(@"makes the head point to the previous tail", ^{
+            [[[linkedList headObject] should] equal:thirdObject];
+        });
+        it(@"makes the tail point to the previous head", ^{
+            [[[linkedList tailObject] should] equal:firstObject];
+        });
+    });
+});
+
 describe(@"-map:", ^{
     __block NPLinkedList *linkedList = nil;
     __block NPLinkedList *outputLinkedList = nil;

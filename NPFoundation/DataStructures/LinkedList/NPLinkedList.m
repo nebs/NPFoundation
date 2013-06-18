@@ -513,6 +513,24 @@
     [self removeNode:nodeToReplace];
 }
 
+#pragma mark - Moving Objects
+- (void)reverse {
+    // Reverse each node's pointer
+    NPLinkedListNode *thisNode = self.head;
+    while (thisNode) {
+        NPLinkedListNode *prevNode = thisNode.prev;
+        thisNode.prev = thisNode.next;
+        NPLinkedListNode *nextNode = thisNode.prev;
+        thisNode.next = prevNode;
+        thisNode = nextNode;
+    }
+
+    // Swap head and tail
+    NPLinkedListNode *head = self.head;
+    self.head = self.tail;
+    self.tail = head;
+}
+
 #pragma mark - Enumerating
 - (NPLinkedList *)map:(id (^)(id object))mapBlock {
     if (!mapBlock) {
