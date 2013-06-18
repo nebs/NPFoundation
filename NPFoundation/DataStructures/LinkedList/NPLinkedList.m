@@ -496,6 +496,10 @@
 
 #pragma mark - Enumeration
 - (NPLinkedList *)map:(id (^)(id object))mapBlock {
+    if (!mapBlock) {
+        return nil;
+    }
+
     NPLinkedList *resultingList = [NPLinkedList linkedList];
     for (id object in self) {
         [resultingList addObject:mapBlock(object)];
