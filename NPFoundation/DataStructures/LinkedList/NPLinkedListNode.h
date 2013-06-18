@@ -11,7 +11,7 @@
 @interface NPLinkedListNode : NSObject
 @property (nonatomic) id object;
 @property (nonatomic) id next;
-@property (nonatomic) id prev;
+@property (weak, nonatomic) id prev;
 
 /**
  Removes all connections this node has to other nodes and other nodes have to this node.  It only handles direct 1st degree connections (prev and next nodes).
