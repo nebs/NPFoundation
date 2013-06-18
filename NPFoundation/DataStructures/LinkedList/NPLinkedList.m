@@ -476,14 +476,17 @@
 
 - (void)replaceObject:(id)anObject withLinkedList:(id)aLinkedList {
     if (!anObject ||
-        !aLinkedList ||
-        [aLinkedList count] == 0 ||
         ![self containsObject:anObject]) {
         return;
     }
 
     NPLinkedListNode *nodeToReplace = [self nodeForObject:anObject];
     if (!nodeToReplace) {
+        return;
+    }
+
+    if (!aLinkedList || [aLinkedList count] == 0) {
+        [self removeObject:anObject];
         return;
     }
 
