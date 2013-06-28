@@ -20,6 +20,8 @@
 		895CAE2F17657F5D001829E5 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 895CAE2E17657F5D001829E5 /* Default.png */; };
 		895CAE3117657F5D001829E5 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 895CAE3017657F5D001829E5 /* Default@2x.png */; };
 		895CAE3317657F5D001829E5 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 895CAE3217657F5D001829E5 /* Default-568h@2x.png */; };
+		8986EEB7177D454D00930AAF /* NPStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 8986EEB6177D454D00930AAF /* NPStack.m */; };
+		8986EEBA177D457400930AAF /* NPStackSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 8986EEB9177D457400930AAF /* NPStackSpec.m */; };
 		89ECE377176824F900F97B09 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89ECE376176824F900F97B09 /* SenTestingKit.framework */; };
 		89ECE378176824F900F97B09 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 895CAE1C17657F5D001829E5 /* UIKit.framework */; };
 		89ECE379176824F900F97B09 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 895CAE1E17657F5D001829E5 /* Foundation.framework */; };
@@ -56,6 +58,9 @@
 		895CAE2E17657F5D001829E5 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		895CAE3017657F5D001829E5 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		895CAE3217657F5D001829E5 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		8986EEB5177D454D00930AAF /* NPStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NPStack.h; path = ../NPFoundation/DataStructures/Stack/NPStack.h; sourceTree = "<group>"; };
+		8986EEB6177D454D00930AAF /* NPStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NPStack.m; path = ../NPFoundation/DataStructures/Stack/NPStack.m; sourceTree = "<group>"; };
+		8986EEB9177D457400930AAF /* NPStackSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NPStackSpec.m; path = NPFoundation/DataStructures/Stack/NPStackSpec.m; sourceTree = "<group>"; };
 		89ECE375176824F900F97B09 /* UnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		89ECE376176824F900F97B09 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		89ECE37C176824F900F97B09 /* UnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
@@ -118,6 +123,7 @@
 		8939700E1765850000BBC88C /* DataStructures */ = {
 			isa = PBXGroup;
 			children = (
+				8986EEB4177D453A00930AAF /* Stack */,
 				80DB2BD5176E2B2A0023737E /* LinkedList */,
 			);
 			name = DataStructures;
@@ -179,6 +185,23 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		8986EEB4177D453A00930AAF /* Stack */ = {
+			isa = PBXGroup;
+			children = (
+				8986EEB5177D454D00930AAF /* NPStack.h */,
+				8986EEB6177D454D00930AAF /* NPStack.m */,
+			);
+			name = Stack;
+			sourceTree = "<group>";
+		};
+		8986EEB8177D456000930AAF /* Stack */ = {
+			isa = PBXGroup;
+			children = (
+				8986EEB9177D457400930AAF /* NPStackSpec.m */,
+			);
+			name = Stack;
+			sourceTree = "<group>";
+		};
 		89ECE37A176824F900F97B09 /* UnitTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -209,6 +232,7 @@
 		89ECE38A176825E300F97B09 /* DataStructures */ = {
 			isa = PBXGroup;
 			children = (
+				8986EEB8177D456000930AAF /* Stack */,
 				80DB2BDC176E2C340023737E /* LinkedList */,
 			);
 			name = DataStructures;
@@ -327,6 +351,7 @@
 				895CAE2D17657F5D001829E5 /* NPAppDelegate.m in Sources */,
 				80DB2BD8176E2B6B0023737E /* NPLinkedList.m in Sources */,
 				80DB2BDB176E2B7F0023737E /* NPLinkedListNode.m in Sources */,
+				8986EEB7177D454D00930AAF /* NPStack.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -335,6 +360,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				80DB2BE2176E2C680023737E /* NPLinkedListSpec.m in Sources */,
+				8986EEBA177D457400930AAF /* NPStackSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
