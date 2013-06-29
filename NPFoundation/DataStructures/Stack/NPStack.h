@@ -33,4 +33,36 @@
  */
 - (NSUInteger)count;
 
+/**
+ Returns the object from the top of the stack without removing it.
+
+ @return The object from the top of the stack.
+ */
+- (id)peekObject;
+
+
+///---------------------------------------------
+/// @name Adding Objects
+///---------------------------------------------
+
+/**
+ Pushes a given object on top of the stack.
+
+ @param anObject The object to push on top of the stack. This value must not be nil.
+ */
+- (void)pushObject:(id)anObject;
+
+
+///---------------------------------------------
+/// @name Removing Objects
+///---------------------------------------------
+
+/**
+ Removes the object from the top of the stack and returns it.
+
+ @return The object that was removed from the top of the stack.
+ */
+- (id)popObject;
+
+
 @end
